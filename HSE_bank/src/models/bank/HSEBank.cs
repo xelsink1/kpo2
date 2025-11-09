@@ -8,5 +8,9 @@ public sealed class HSEBank(ServiceProvider serviceProvider)
     
     private ServiceProvider serviceProvider_ = serviceProvider;
     
+    private List<BankAccount> accounts_ = new List<BankAccount>();
+    private List<Operation> operations_ = new List<Operation>();
+    private List<Category> categories_ = new List<Category>();
+    
     
 }

@@ -12,7 +12,15 @@ public class HSEBankManger(ServiceProvider serviceProvider)
 
         switch (choice)
         {
-            case "":
+            case "Редактирование счетов":
+                // ...
+                console.ConsoleCommands.WaitForEnter();
+                break;
+            case "Редактирование категорий":
+                // ...
+                console.ConsoleCommands.WaitForEnter();
+                break;
+            case "Редактирование операций":
                 // ...
                 console.ConsoleCommands.WaitForEnter();
                 break;
