@@ -1,12 +1,17 @@
+using HSE_bank.consts;
 using Spectre.Console;
 
 namespace HSE_bank.console;
 
 public static class ConsoleCommands
 {
-    public static string ShowMenu(string[] opts, string title = "Что вы хотите сделать?")
+    public static string ShowMenu(string[] opts, string title = "Что вы хотите сделать?", bool flag = true)
     {
-        opts = opts.Append("Выйти").ToArray();
+        if (flag)
+        {
+            opts = opts.Append("Выйти").ToArray();
+        }
+
         Console.Clear();
         var choice = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
@@ -47,6 +52,22 @@ public static class ConsoleCommands
         return input;
     }
     
+    public static decimal GetDecimal(string title = "")
+    {
+        if (title.Length > 0)
+        {
+            Console.Clear();
+            Console.WriteLine(title);
+        }
+
+        decimal input;
+        while (!decimal.TryParse(Console.ReadLine(), out input))
+        {
+            Console.WriteLine("Это не рациональное число!");
+        }
+        return input;
+    }
+    
     public static void WaitForEnter()
     {
         AnsiConsole.MarkupLine("[green]Нажмите Enter чтобы продолжить...[/]");
@@ -59,5 +80,23 @@ public static class ConsoleCommands
         }
     
         AnsiConsole.WriteLine();
+    }
+    
+    public static DateOnly GetDate()
+    {
+        while (true)
+        {
+            Console.Write("Введите дату (гггг-мм-дд): ");
+            string input = Console.ReadLine();
+
+            if (DateOnly.TryParse(input, out DateOnly date))
+            {
+                Console.Clear();
+                Console.WriteLine($"Введенная дата: {date:dd.MM.yyyy}");
+                return date;
+            }
+            Console.Clear();
+            Console.WriteLine("Неверный формат даты! Используйте формат гггг-мм-дд");
+        }
     }
 }

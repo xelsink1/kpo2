@@ -1,14 +1,8 @@
 namespace HSE_bank.models;
 
-public class BankAccount
+public class BankAccount(int id, string name, decimal balance)
 {
-    public int Id => id_;
-    public string Name => name_;
-    public decimal Balance => balance_;
-    
-    private int id_;
-    private string name_;
-    private decimal balance_;
-    
-    
+    public int Id => id;
+    public string Name => name;
+    public decimal Balance => balance;
 }

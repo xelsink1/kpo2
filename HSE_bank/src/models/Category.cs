@@ -2,13 +2,9 @@ using HSE_bank.consts;
 
 namespace HSE_bank.models;
 
-public class Category
+public class Category(int id, CategoryType type, string name)
 {
-    public int Id => id_;
-    public string Name => name_;
-    public CategoryType Type => type_;
-    
-    private int id_;
-    private CategoryType type_;
-    private string name_;
+    public int Id => id;
+    public string Name => name;
+    public CategoryType Type => type;
 }
