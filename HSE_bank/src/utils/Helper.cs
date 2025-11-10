@@ -7,11 +7,11 @@ using HSE_bank.console;
 
 public static class Helper
 {
-    public static int GetId()
+    public static int GetId(string ext = "")
     {
         while (true)
         {
-            var id = ConsoleCommands.GetInt("Введите id.");
+            var id = ConsoleCommands.GetInt("Введите id" + ext);
             if (id >= 0)
             {
                 return id;

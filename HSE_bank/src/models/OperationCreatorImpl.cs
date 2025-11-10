@@ -10,10 +10,10 @@ public class OperationCreatorImpl : OperationCreator
     {
         var id = id_ == -1 ? serviceProvider.GetService<DBOperations>()!.NewOperationId : id_;
         var type = Helper.GetOperationType();
-        var bank_account_id = Helper.GetId();
+        var bank_account_id = Helper.GetId("счета");
         var amount = Helper.GetAmount();
         var date = Helper.GetDate();
-        var category_id = Helper.GetId();
+        var category_id = Helper.GetId("категории");
         return new Operation(id, type, bank_account_id, amount, date, category_id);
     }
 }

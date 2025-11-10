@@ -3,17 +3,16 @@
 
 # Основной функционал
 Управление счетами, категориями и операциями.
-Экспорт данных.
 # Принципы SOLID
 ### 1. Single responsibility
 Например, есть классы DBAccountsImpl, DBCategoriesImpl, DBOperationsImpl, они выполняют работу над счетами, категориями, операциями соответственно. То есть отвечают за один функционал.
-## 2. Принцип Liskov
+### 2. Принцип Liskov
 Не нарушен.
-## 3. Interface Segregation
+### 3. Interface Segregation
 Интерфейсы разделены DBAccounts, DBCategories, DBOperations.
-## 4. Dependency Inversion
+### 4. Dependency Inversion
 Классы работают с абстракциями, а не с реализациями. Например, AccountCommands использует DBAccounts, не зная о DBAccountsImpl.
-## 5. Open-сlosed
+### 5. Open-сlosed
 Возьмем класс DBAccounts, добавив новый функционал на работу текущего кода это никак не повлияет
 # Grasp
 #### High Cohesion
