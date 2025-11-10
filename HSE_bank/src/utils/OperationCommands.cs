@@ -1,58 +1,52 @@
 using HSE_bank.console;
 using HSE_bank.models;
 using HSE_bank.models.bank;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HSE_bank.utils;
 
-public class OperationCommands
+public static class OperationCommands
 {
-    public static void Command(ref HSEBank bank)
+    public static void Command(ServiceProvider serviceProvider)
     {
         var choice = ConsoleCommands.ShowMenu(consts.Menus.MenuSubCommandOperation);
 
         switch (choice)
         {
             case "Добавить операцию":
-                var operation = GetOperationFromInput(ref bank);
-                if (!bank.CheckAccountId(operation.BankAccountId))
+                var operation = serviceProvider.GetService<OperationCreator>()!.GetOperationFromInput(serviceProvider);
+                if (!serviceProvider.GetService<DBAccounts>()!.CheckAccountId(operation.BankAccountId))
                 {
                     Console.Clear();
                     Console.WriteLine("Ошибка, нет счета с таким id.");
                     return;
                 }
-                if (!bank.CheckCategoryId(operation.BankAccountId))
+                if (!serviceProvider.GetService<DBCategories>()!.CheckCategoryId(operation.BankAccountId))
                 {
                     Console.Clear();
                     Console.WriteLine("Ошибка, нет категории с таким id.");
                     return;
                 }
-                bank.UpdateOperation(operation);
+                serviceProvider.GetService<DBOperations>()!.UpdateOperation(operation);
                 break;
             case "Отредактировать операцию":
                 var id = Helper.GetId();
-                if (!bank.CheckAccountId(id))
+                if (!serviceProvider.GetService<DBOperations>()!.CheckOperationId(id))
                 {
                     Console.Clear();
                     Console.WriteLine("Ошибка, нет операции с таким id.");
                     return;
                 }
-                bank.UpdateOperation(GetOperationFromInput(ref bank, id));
+                Console.Clear();
+                Console.WriteLine("Введите новые данные операции.");
+                serviceProvider.GetService<DBOperations>()!.UpdateOperation(
+                    serviceProvider.GetService<OperationCreator>()!.GetOperationFromInput(serviceProvider, id)
+                    );
                 break;
             case "Удалить операцию":
                 id = Helper.GetId();
-                bank.DeleteOperation(id);
+                serviceProvider.GetService<DBOperations>()!.DeleteOperation(id);
                 break;
         }
-    }
-
-    private static Operation GetOperationFromInput(ref HSEBank bank, int id_ = -1)
-    {
-        var id = id_ == -1 ? bank.NewOperationId : id_;
-        var type = Helper.GetOperationType();
-        var bank_account_id = Helper.GetId();
-        var amount = Helper.GetAmount();
-        var date = Helper.GetDate();
-        var category_id = Helper.GetId();
-        return new Operation(id, type, bank_account_id, amount, date, category_id);
     }
 }

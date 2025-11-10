@@ -84,6 +84,7 @@ public static class ConsoleCommands
     
     public static DateOnly GetDate()
     {
+        Console.Clear();
         while (true)
         {
             Console.Write("Введите дату (гггг-мм-дд): ");

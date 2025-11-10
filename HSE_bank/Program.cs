@@ -1,10 +1,18 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using HSE_bank;
+using HSE_bank.models;
+using HSE_bank.models.bank;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 
-var services = new ServiceCollection();
+var services = new ServiceCollection()
+    .AddSingleton<DBAccounts, DBAccountsImpl>()
+    .AddSingleton<DBCategories, DBCategoriesImpl>()
+    .AddSingleton<DBOperations, DBOperationsImpl>()
+    .AddSingleton<AccountCreator, AccountCreatorImpl>()
+    .AddSingleton<CategoryCreator, CategoryCreatorImpl>()
+    .AddSingleton<OperationCreator, OperationCreatorImpl>();
 
 using ServiceProvider serviceProvider = services.BuildServiceProvider();
 
